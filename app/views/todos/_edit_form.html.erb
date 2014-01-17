@@ -1,4 +1,11 @@
 <% todo = edit_form -%>
+
+
+# BEGIN: gandalf, 2011-09-09
+next_tab_index = 0 unless defined?(next_tab_index)
+# END
+
+
 <%= form_for(todo, :html=> { :name=>'todo', :id => dom_id(@todo, 'form'), :class => 'inline-form edit_todo_form' }) do |t|%>
   <div id="edit_error_status">
   <% if todo.errors.any? -%>

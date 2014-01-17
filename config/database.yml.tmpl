@@ -8,7 +8,8 @@ development:
   username: root
   password:
 
-production:
+# gandalf
+production: &PROD
   adapter: mysql2
   database: tracks
   # set this if you are storing utf8 in your mysql database to handle strings
@@ -16,7 +17,7 @@ production:
   # encoding: utf8
   host: localhost
   username: root
-  password:
+  password: hoveka87
 
 # The following is an example to configure Tracks to use sqlite
 
@@ -35,6 +36,10 @@ test: &TEST
   database: tracks_test
   username: root
   encoding: utf8
+
+# gandalf
+mail: 
+  <<: *PROD
 
 cucumber:
   <<: *TEST

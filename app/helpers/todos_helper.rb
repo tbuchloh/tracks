@@ -33,10 +33,12 @@ module TodosHelper
     options = {:x_defer_alert => false, :class => "icon_defer_item icon_defer_#{days}_item", :id => "defer_#{days}_#{dom_id(todo)}" }
     if todo.due
       futuredate = (todo.show_from || todo.user.date) + days.days
-      if futuredate > todo.due
-        options[:x_defer_alert] = true
-        options[:x_defer_date_after_due_date] = t('todos.defer_date_after_due_date')
-      end
+      # BEGIN: gandalf, 2012-02-02
+      #if futuredate > todo.due
+      #  options[:x_defer_alert] = true
+      #  options[:x_defer_date_after_due_date] = t('todos.defer_date_after_due_date')
+      #end
+      # END
     end
 
     return link_to(t('todos.defer_x_days', :count => days), url, options)

@@ -765,6 +765,20 @@ class TodosController < ApplicationController
     @todo_was_deferred_from_active_state = @todo.show_from.nil?
 
     @todo.show_from = (@todo.show_from || @todo.user.date) + numdays.days
+
+
+    # BEGIN: gandalf, 2012-02-02
+    if @todo.due then
+        if @todo.due < @todo.show_from then
+            @todo.due = @todo.show_from
+        end
+        if @todo.show_from <= @todo.user.date
+            @todo.show_from = nil
+        end
+    end
+    # END
+
+
     @saved = @todo.save
     @status_message = t('todos.action_saved_to_tickler')
 

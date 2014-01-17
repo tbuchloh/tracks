@@ -22,6 +22,9 @@ cache [todo, current_user.date.strftime("%Y%m%d"), @source_view, current_user.pr
           <ul id="ul<%= dom_id(todo) %>" class="todo-submenu">
             <li><%= remote_delete_menu_item(todo) %></li>
             <% unless todo.completed? || todo.deferred? -%>
+              <%# BEGIN: gandalf, 2012-06-04 %>
+              <li><%= remote_defer_menu_item(0, todo) %></li>
+              <%# END %>
               <li><%= remote_defer_menu_item(1, todo) %></li>
               <li><%= remote_defer_menu_item(2, todo) %></li>
               <li><%= remote_defer_menu_item(3, todo) %></li>
