@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= favicon_link_tag 'favicon.ico' %>
+    <%= favicon_link_tag 'apple-touch-icon.png', :rel => 'apple-touch-icon', :type => 'image/png' %>
+    <title><%= @page_title %></title>
+  </head>
+
+  <body class="TodosController">
+
+    <div class="TodosController">
+
+	<h1>Tracks: Add Todo</h1>
+
+	<div id="edit_error_status">
+  	<% if @todo.errors.any? -%>
+            <div id="errorExplanation">
+    		<ul>
+      		<% @todo.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+		</ul>
+            </div>
+  	<% end -%>
+	</div>
+	<% unless @todo.errors.any? %>
+        <div class="message">
+            <h4 id="flash" class="alert notice">
+        	Todo (<%= @todo.id %>) successfully created!
+            </h4>
+        <script type="text/javascript">
+	 window.setTimeout(window.close, 2500);
+	</script>
+        </div>
+	<% end %>
+	<div style="text-align:center;"><a href="javascript:window.close()">Close</a></div>
+    </div>
+
+  </body>
+
+</html>
+
