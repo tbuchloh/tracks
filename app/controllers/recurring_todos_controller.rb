@@ -9,7 +9,8 @@ class RecurringTodosController < ApplicationController
     @page_title = t('todos.recurring_actions_title')
     @source_view = params['_source_view'] || 'recurring_todo'
     find_and_inactivate
-    @recurring_todos = current_user.recurring_todos.active.includes(:tags, :taggings).order(description:"asc")
+    @recurring_todos = current_user.recurring_todos.active.includes(:tags, :taggings)
+    @recurring_todos.sort! { |a, b| a.description <=> b.description }
     @completed_recurring_todos = current_user.recurring_todos.completed.limit(10).includes(:tags, :taggings)
 
     @no_recurring_todos = @recurring_todos.count == 0
