@@ -7,8 +7,8 @@ class MessageGateway < ActionMailer::Base
     return false if user.nil?
     
     context = user.prefs.sms_context
-    description = nil
-    notes = nil
+    description = ""
+    notes = ""
     
     if email.multipart?
       description = get_text_or_nil(email.subject)
@@ -16,7 +16,7 @@ class MessageGateway < ActionMailer::Base
     else
       if email.subject.blank?
         description = get_decoded_text_or_nil(email.body)
-        notes = nil
+        notes = ""
       else
         description = get_text_or_nil(email.subject)
         notes = get_decoded_text_or_nil(email.body)
@@ -24,8 +24,11 @@ class MessageGateway < ActionMailer::Base
     end
 
     # BEGIN, gandalf, 2014-02-27
+    Rails.logger.info "Received email={#{email.to_s}}, description.encoding={#{description.encoding}}, notes.encoding={#{notes.encoding}}"
     description = description[0, 100 - 1]
-    notes = notes[0, 60000 - 1]
+    #notes = notes.encode("UTF-8", invalid: :replace, undef: :replace)[0, 60000 - 1]
+    notes = notes.force_encoding("UTF-8")[0, 60000 - 1]
+    Rails.logger.info "Ensured constraints description={#{description}}, notes={#{notes}}"
     # END, gandalf, 2014-02-27
 
     todo = Todo.from_rich_message(user, context.id, description, notes)
