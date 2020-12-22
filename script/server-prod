@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source /usr/local/rvm/scripts/rvm
+rvm use 2.5.0
+
+export RAILS_RELATIVE_URL_ROOT=/tracks 
+export RAILS_SERVE_STATIC_FILES=true
+
+bin/rails server \
+	-b localhost \
+	-p 45947 \
+	-e production \
+	-u puma 
